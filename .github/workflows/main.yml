@@ -19,12 +19,12 @@ jobs:
       - name: Docker Build and push
         uses: docker/build-push-action@v2.7.0
         with:
-          context: ./src
-          file: ./src/Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
           tags: |
-            guimap/rotten-potatos:latest
-            guimap/rotten-potatos:${{  github.run_number }}
+            guimap/conversao-peso:latest
+            guimap/conversao-peso:${{  github.run_number }}
             
   CD:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v1.3
         with:
-          image: guimap/rotten-potatos:${{  github.run_number }}
+          image: guimap/conversao-peso:${{  github.run_number }}
           manifests:
             kub/deployment.yaml
   
